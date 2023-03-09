@@ -53,6 +53,7 @@ def fermat(n):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('modulo', metavar='M', nargs='?', type=int, help='Modulo to be factorized')
     parser.add_argument("-f", "--file", metavar="/path/to/file", help="Input file", type=str)
     args = parser.parse_args()
 
@@ -61,7 +62,10 @@ if __name__ == '__main__':
         # List all registered users (user table)
         n = parse_cert(args.file)
         p, q = fermat(n)
-        print("p: {:02x}\np: {:02x}".format(p,q))   
+        print(f"p: {p}\np: {q}")   
+    elif args.modulo:
+        p, q = fermat(args.modulo)
+        print(f"p: {p}\np: {q}")
     else:
         parser.print_help()
 

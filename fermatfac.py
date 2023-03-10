@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('modulo', metavar='M', nargs='?', type=int, help='Modulo to be factorized')
-    parser.add_argument("-f", "--file", metavar="/path/to/file", help="Input file", type=str)
+    parser.add_argument("-f", "--file", metavar="file", help="Input file", type=str)
     args = parser.parse_args()
 
     

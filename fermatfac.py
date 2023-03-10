@@ -22,9 +22,9 @@ def parse_cert(file_path: Path):
     public_key = serialization.load_der_public_key(cert_data)
 
     n = public_key.public_numbers().n
-    #e = public_key.public_numbers().e
+    e = public_key.public_numbers().e
 
-    return n
+    return n, e
 
 
 def fermat(n):
@@ -50,6 +50,19 @@ def fermat(n):
     return (p , q)
 
 
+def calculate_private_key(e, n):
+    pass
+
+
+def print_results(p, q, n):
+    print("+----------------------------------------+")
+    print("|          Fermat Factorization          |")
+    print("+----------------------------------------+\n")
+    print(f"n: {n}\n")
+    print(f"p: {p}\n")
+    print(f"p: {q}\n")
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -60,13 +73,15 @@ if __name__ == '__main__':
     
     if args.file:
         # List all registered users (user table)
-        n = parse_cert(args.file)
+        n, e = parse_cert(args.file)
         p, q = fermat(n)
-        print(f"p: {p}\np: {q}")   
+        print_results(p, q, n)
+        phi_n = (p-1)*(q-1)
+        d = pow(e, -1, n)
+        print(f"Public key (from file):   {e}")
+        print(f"Private key (calculated): {d}\n")
     elif args.modulo:
         p, q = fermat(args.modulo)
-        print(f"p: {p}\np: {q}")
+        print_results(p, q, args.modulo)
     else:
         parser.print_help()
-
-    
